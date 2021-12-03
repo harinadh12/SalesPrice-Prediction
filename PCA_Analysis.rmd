@@ -1,0 +1,74 @@
+---
+title: "Homework#3"
+author: "Harinadh Appidi"
+date: "9/13/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+
+
+```{r}
+library(mlbench)
+library(corrplot)
+library(devtools)
+library(ggbiplot)
+library(tidyverse)
+library(caret)
+library(MASS)
+library(lares)
+library(HSAUR2)
+library(outliers)
+
+```
+
+
+
+
+
+# Housing data dimension reduction and exploration
+```{r}
+housingData <- read.csv("housingData.csv")
+hd <- housingData %>%
+  select_if(is.numeric) %>%
+  dplyr::mutate(age = YrSold - YearBuilt,
+                ageSinceRemodel = YrSold - YearRemodAdd,
+                ageofGarage = ifelse(is.na(GarageYrBlt), age, YrSold - GarageYrBlt)) %>%
+  dplyr::select(!c(Id,MSSubClass, LotFrontage, GarageYrBlt,
+                   MiscVal, YrSold  , MoSold, YearBuilt,YearRemodAdd, MasVnrArea))
+```
+
+**PCA Analysis**
+```{r}
+hd_cov <- cov(hd)
+hd <- subset(hd,select=-c(SalePrice))
+hd_pcr <- prcomp(hd,scale. = TRUE)
+screeplot(hd_pcr,type = "lines")
+summary(hd_pcr)
+```
+
+`PC1 accounts for 23% of total variance in data and to account for 80% variance 12 atleast principal componenets are required.`
+
+```{r}
+#head(hd_pcr$x,10)
+ggbiplot(hd_pcr,circle=TRUE,alpha=0,varname.size=1.75,varname.adjust=3)
+```
+
+`Lot Area, Fireplaces,Garage Cars,Garage Area,Open Porch SF  are affecting  PC1 positively and strongly whereas Pool area,Kitchen, bedroom abavrgr,X2nd Flr are affecting PC2 more.
++ Also, As the predicted variable is continuous(sales price) in this data set, biplot cant be grouped based on predictor class like Glass data set and require other form on analysis than PCA to better understand data set.`
+
+```{r}
+#cor(hd)
+corrplot(corr = cor(hd),c1.offset=101)
+```
+
+
+```{r}
+corr_cross(hd, 
+            max_pvalue = 0.05, 
+            top = 10 )
+```
+
+`10 most correlated variables and all of them are positively correlated using correlogram.`
+
