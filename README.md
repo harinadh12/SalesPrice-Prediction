@@ -30,4 +30,5 @@ the variables and the factor levels in the data.
   | Elastic Net       | Caret-glmnet | alpha = 0.5 & lambda = 0.0016917 | 0.104             | 0.897       | 
   | Robust Regression | Caret-rlm    | Psi.bisquare (Tukey's Formula)   | 0.103             | 0.897       | 
  
+  Code for regression modeling can be found here [modeling](./modeling.R)
   ###### Robust Regression performed better than other models on test data followed closely by Elastic Net model.
