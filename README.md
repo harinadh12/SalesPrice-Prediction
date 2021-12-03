@@ -16,7 +16,7 @@ the variables and the factor levels in the data.
   Principal component analysis is performed to find out correlation between feature variables and reduce regression from a higher dimensional to a lower dimensional problem.
   Code for PCA can be be found here [PCA](./PCA.rmd)
   ### Modeling :
-  Regression modeling is performed using numeric feature variables so as to reduce higher dimensionality induced with dummy variable encoding for categorical variables and       predict log scale of SalePrice.
+  Regression modeling is performed using numeric feature variables so as to reduce higher dimensionality induced with dummy variable encoding for categorical variables and       predict log scale of SalePrice (i.e., log(salePrice)).
   * Ordinary Least Squares (OLS) model is used as base model for performance measurement.
   * 5 fold cross validation is performed for hyper parameter tuning
   * 100 observations are used as test data and remaning 900 observations as training data
