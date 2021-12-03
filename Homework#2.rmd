@@ -1,0 +1,212 @@
+---
+title: "Homework#2"
+author: "Harinadh"
+date: "9/6/2021"
+output:
+  word_document: default
+  html_document: default
+
+---
+
+
+```{r}
+#install.packages("tidyverse")
+library(tidyverse)
+options(warn=-1)
+```
+
+
+# 3.2.4 Exercises #4, #5
+
+**Exercise --> 4**
+```{r}
+ggplot(data=mpg)+geom_point(mapping = aes(x=cyl,y=hwy))+labs(title = "Highway fuel efficiency vs Number of cylinders",x = "No. of cylinders",y="Highway fuel efficiency")+theme(plot.title = element_text(hjust = 0.5))
+```
+
+**Exercise --> 5**
+```{r}
+ggplot(data = mpg) + geom_point(mapping = aes(x = drv,y = class)) +
+labs(title = "Type of Vehicle vs Drive Train",
+     x = "Drive Train", y="Type of Vehicle")
+
+```
+
+The Class vs drv plot could not provide useful information about the dataset as it doesn't plot all the records and not much intuition can be gained from the visualization. There is no specific pattern or trend between the vehicle type and drive train.scatter plots are more useful when both coordinates are continuous(x,y) or atleast one is continuous and other is categorical.
+
+# 3.3.1 Exercises #3, #4, #6
+
+**Exercise --> 3**
+***Continuous Variable Plots***
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = cty))+labs(title = "Highway mileage vs displacement in liters and color coded")
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = cty))+labs(title = "Highway mileage vs displacement in liters and size coded")
+```
+
+```{r}
+#ggplot(data = mpg) + 
+  #geom_point(mapping = aes(x = displ, y = hwy, shape = cty))+labs(title="Highway mileage vs displacement in #liters and shape coded")
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy),shape = mpg$cty)+labs(title="Highway mileage vs displacement in liters and shape coded outside aes()")
+```
+
+
+
+***Categorical Variable Plots***
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = manufacturer))+labs(title = "Highway mileage vs displacement in liters and size coded")
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = manufacturer))+labs(title = "Highway mileage vs displacement in liters and shape coded")
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = manufacturer))+labs(title = "Highway mileage vs displacement in liters and color coded")
+```
+
+**Exercise --> 4**
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = manufacturer,shape=manufacturer,size=manufacturer))+labs(title = "Highway mileage vs displacement in liters and color coded")
+```
+
+**Exercise --> 6**
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = displ<5))+labs(title = "Highway mileage vs displacement in liters and color coded",x  ="Displacement in liters",y ="Highway MPG")
+```
+This figure shows that when something other than variable name is mapped to aesthetic color plots are segregated based on true or false of the condition provided.
+
+
+# 3.5.1 Exercises #4
+
+**Exercise --> 4**
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
++ Advantage of visualizing data for each factor of a variable (feature) in separate plots instead of all the points scattered in single plot.
++ Disadvantage being we cannot visualize continuous feature vectors as facet plots to be plotted will be huge.
++ Also with larger datasets number of facet plots increase and would not a good criteria to visualize the relationships between feature vectors.
+
+
+
+# Problem 1b
+```{r}
+ggplot(data = mpg,mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth() +
+  geom_point(show.legend=FALSE,alpha=0.1)+
+  facet_wrap(~drv)+
+  geom_smooth(method=lm,color="black",se=FALSE) +
+  labs(x="Displacement",y="Highway MPG") +
+  geom_jitter(alpha=0.1, width=0,height=0.35)
+```
+
+
+
+# Problem 2
+```{r}
+df <- read.csv('housingData.csv')
+str(df)
+```
+
+
+
+```{r}
+summary(df)
+```
+```{r}
+p <- ggplot(data=df)
+p + geom_bar(mapping=aes(x=LotShape,y=SalePrice),stat="identity")
+```
+```
+This figure shows that Sale Price is more for Regular houses , followed by Irregular 1, 2, 3 as expected.
+```
+
+
+
+```{r}
+p+geom_bar(aes(x=OverallCond,y=SalePrice),stat="identity")
+```
+```This figure shows that Sale price is higher for the houses where Overall condition is 5 and gradually decreased even though OVerall condition increased```
+
+
+```{r}
+p + geom_histogram(aes(x=SalePrice),bins=40)
+```
+
+```This figure depicts that Sale price distribution as a histogram and most of the houses are within 400K.```
+
+
+```{r}
+p + stat_summary(aes(x=OverallCond,y=SalePrice))
+```
+```
+Stat summary showing the sale price mean and mean standard error for different values of Overall condition.
+```
+
+```{r}
+p + geom_point(aes(x=OverallCond,y=SalePrice,color=RoofStyle))+
+  scale_color_brewer(type="qual")
+```
+
+```
+Sale Price  at different overall condition for different houses with roof styles Gable, Hip, other.
+Gabe houses sold at higher prices compared to Hip and other houses at both low and high overall conditions.
+```
+
+
+
+```{r}
+ggplot(df,aes(x=YearBuilt,y=SalePrice,color=RoofStyle)) + geom_point()+
+  geom_smooth() +
+    facet_wrap(~RoofStyle)
+```
+```
+Sale Price distribution w.r.t yearbuilt for different roof styles. Hip roof style houses are considerably sold at higher prices than the following gabe and other houses.
+```
+
+
+```{r}
+ggplot(df,aes(x=OverallQual,y=SalePrice))+geom_point(aes(color=HouseStyle)) +facet_wrap(~RoofStyle)
+```
+
+```
+Sale Price w.r.t Overall Quality for different House styles depicting that 2 story houses dominating with high sale price.
+```
+```{r}
+cat1 <- c("MSSubClass","MSZoning","LotFrontage","LotShape","Alley","LandContour","LotConfig","LandSlope")
+df[,cat1] <- lapply(df[,cat1],factor)
+
+df_cat <- df[cat1]
+pairs(df_cat)
+```
+
+Tried Plotting scatter plots for some of the categorical variables to visualize the relationship between them.
+
+
+
+```{r} 
+ggplot(df, aes(x=ExterQual, y=ExterCond)) + 
+  geom_point()+
+  geom_smooth(method=lm)
+```
+
+This plot visualizes the exterior condition based on exterior quality. we can observe that though exterior condition is average exterior quality is above average and exterior condition is below average even when exterior quality if average and etc..
+
+
+```{r}
+
+```
