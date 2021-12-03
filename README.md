@@ -10,4 +10,4 @@ the variables and the factor levels in the data.
 
   ### Exploratory Data Analysis :
     EDA is performed on both numeric and categorical variables to find each of the variables distribution, independence and dependence on response variable 'SalePrice'.
-    More information about Exploratory Analysis and insights about data can be found [a EDA link](https://github.com/harinadh12/SalesPrice-Prediction/blob/main/EDA.rmd)
+    More information about Exploratory Analysis and insights about data can be found [EDA](https://github.com/harinadh12/SalesPrice-Prediction/blob/main/EDA.rmd)
