@@ -1,6 +1,6 @@
 ---
-title: "Homework#2"
-author: "Harinadh"
+title: "Exploratory Data Analysis"
+author: "Harinadh Appidi"
 date: "9/6/2021"
 output:
   word_document: default
@@ -16,14 +16,11 @@ options(warn=-1)
 ```
 
 
-# 3.2.4 Exercises #4, #5
-
-**Exercise --> 4**
 ```{r}
 ggplot(data=mpg)+geom_point(mapping = aes(x=cyl,y=hwy))+labs(title = "Highway fuel efficiency vs Number of cylinders",x = "No. of cylinders",y="Highway fuel efficiency")+theme(plot.title = element_text(hjust = 0.5))
 ```
 
-**Exercise --> 5**
+
 ```{r}
 ggplot(data = mpg) + geom_point(mapping = aes(x = drv,y = class)) +
 labs(title = "Type of Vehicle vs Drive Train",
@@ -33,9 +30,9 @@ labs(title = "Type of Vehicle vs Drive Train",
 
 The Class vs drv plot could not provide useful information about the dataset as it doesn't plot all the records and not much intuition can be gained from the visualization. There is no specific pattern or trend between the vehicle type and drive train.scatter plots are more useful when both coordinates are continuous(x,y) or atleast one is continuous and other is categorical.
 
-# 3.3.1 Exercises #3, #4, #6
 
-**Exercise --> 3**
+
+
 ***Continuous Variable Plots***
 ```{r}
 ggplot(data = mpg) + 
@@ -75,13 +72,13 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = manufacturer))+labs(title = "Highway mileage vs displacement in liters and color coded")
 ```
 
-**Exercise --> 4**
+
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = manufacturer,shape=manufacturer,size=manufacturer))+labs(title = "Highway mileage vs displacement in liters and color coded")
 ```
 
-**Exercise --> 6**
+
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = displ<5))+labs(title = "Highway mileage vs displacement in liters and color coded",x  ="Displacement in liters",y ="Highway MPG")
@@ -89,9 +86,7 @@ ggplot(data = mpg) +
 This figure shows that when something other than variable name is mapped to aesthetic color plots are segregated based on true or false of the condition provided.
 
 
-# 3.5.1 Exercises #4
 
-**Exercise --> 4**
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
@@ -103,7 +98,7 @@ ggplot(data = mpg) +
 
 
 
-# Problem 1b
+
 ```{r}
 ggplot(data = mpg,mapping = aes(x = displ, y = hwy)) + 
   geom_smooth() +
@@ -116,7 +111,7 @@ ggplot(data = mpg,mapping = aes(x = displ, y = hwy)) +
 
 
 
-# Problem 2
+
 ```{r}
 df <- read.csv('housingData.csv')
 str(df)
@@ -205,8 +200,3 @@ ggplot(df, aes(x=ExterQual, y=ExterCond)) +
 ```
 
 This plot visualizes the exterior condition based on exterior quality. we can observe that though exterior condition is average exterior quality is above average and exterior condition is below average even when exterior quality if average and etc..
-
-
-```{r}
-
-```
